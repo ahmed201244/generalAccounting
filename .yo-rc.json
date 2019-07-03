@@ -1,0 +1,38 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "com.project",
+            "nativeLanguage": "en"
+        },
+        "jhipsterVersion": "5.8.1",
+        "applicationType": "monolith",
+        "baseName": "generalAccounting",
+        "packageName": "com.project",
+        "packageFolder": "com/project",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "cacheProvider": "ehcache",
+        "enableHibernateCache": true,
+        "websocket": false,
+        "databaseType": "sql",
+        "devDatabaseType": "mysql",
+        "prodDatabaseType": "mysql",
+        "searchEngine": false,
+        "messageBroker": false,
+        "serviceDiscoveryType": false,
+        "buildTool": "maven",
+        "enableSwaggerCodegen": false,
+        "jwtSecretKey": "NWVmYjc0MWE0NzBkYTU3Y2Y0YjZkNWZmYzMwZGM1ODFlMzkyOTRjZTgxMzhlNDIxMWRiMWUwNDdmNmI0MWNlMGRjM2RlMDZkNjJhZTA0Y2I0NjVmMjg5NDc4ZTE4ZDg5OTFkZDM4Y2MzMTY5MGEzOTgxMzM5ZTMyMWFhZjUzZmM=",
+        "clientFramework": "angularX",
+        "useSass": true,
+        "clientPackageManager": "npm",
+        "testFrameworks": ["protractor"],
+        "jhiPrefix": "jhi",
+        "entitySuffix": "",
+        "dtoSuffix": "DTO",
+        "otherModules": [],
+        "enableTranslation": true,
+        "nativeLanguage": "en",
+        "languages": ["en", "ar-ly"]
+    }
+}

@@ -1,0 +1,47 @@
+entity Currency {
+code	String, 
+description String }
+
+entity Transaction {
+fromAccount String,
+toAccount String,
+date Instant,
+Amount Double,
+Narrative String, transactionType TransactionType, 
+uuid String}
+
+entity GeneralAccount {
+code	String, 
+description String,
+type AccountType,
+balance Double }
+
+
+
+
+enum AccountType {
+    ASSET, LIABILITY, INCOME, EXPENDITURE, MEMORANDUM
+}
+enum TransactionType {
+    CREDIT, DEBIT
+}
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl 
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	GeneralAccount{fromAccount} to Transaction,
+    GeneralAccount{toAccount} to Transaction,
+    GeneralAccount{currency} to Currency
+}
+relationship ManyToOne {
+	Currency{currency} to Transaction
+}
+
+

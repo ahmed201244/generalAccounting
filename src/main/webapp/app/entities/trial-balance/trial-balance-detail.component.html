@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="trialBalance">
+            <h2><span jhiTranslate="generalAccountingApp.trialBalance.detail.title">Trial Balance</span> {{trialBalance.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="generalAccountingApp.trialBalance.debit">Debit</span></dt>
+                <dd>
+                    <span>{{trialBalance.debit}}</span>
+                </dd>
+                <dt><span jhiTranslate="generalAccountingApp.trialBalance.credit">Credit</span></dt>
+                <dd>
+                    <span>{{trialBalance.credit}}</span>
+                </dd>
+                <dt><span jhiTranslate="generalAccountingApp.trialBalance.trialBalance">Trial Balance</span></dt>
+                <dd>
+                    <div *ngIf="trialBalance.trialBalance">
+                        <a [routerLink]="['/general-account', trialBalance.trialBalance?.id, 'view']">{{trialBalance.trialBalance?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/trial-balance', trialBalance.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

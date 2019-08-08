@@ -1,0 +1,46 @@
+{
+    "name": "GeneralAccount",
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "unique",
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "AccountType",
+            "fieldValues": "ASSET,LIABILITY,INCOME,EXPENDITURE,MEMORANDUM",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "generalAccountCurrency",
+            "otherEntityName": "currency",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "generalAccount"
+        }
+    ],
+    "changelogDate": "20190808143244",
+    "entityTableName": "general_account",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

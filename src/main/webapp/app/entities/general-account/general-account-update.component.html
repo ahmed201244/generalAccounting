@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-general-account-heading" jhiTranslate="generalAccountingApp.generalAccount.home.createOrEditLabel">Create or edit a General Account</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!generalAccount.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="generalAccount.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.generalAccount.code" for="field_code">Code</label>
+                    <input type="text" class="form-control" name="code" id="field_code"
+                        [(ngModel)]="generalAccount.code" required/>
+                    <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.generalAccount.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                        [(ngModel)]="generalAccount.description" required/>
+                    <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.description?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.generalAccount.type" for="field_type">Type</label>
+                    <select class="form-control" name="type" [(ngModel)]="generalAccount.type" id="field_type"  required>
+                        <option value="ASSET">{{'generalAccountingApp.AccountType.ASSET' | translate}}</option>
+                        <option value="LIABILITY">{{'generalAccountingApp.AccountType.LIABILITY' | translate}}</option>
+                        <option value="INCOME">{{'generalAccountingApp.AccountType.INCOME' | translate}}</option>
+                        <option value="EXPENDITURE">{{'generalAccountingApp.AccountType.EXPENDITURE' | translate}}</option>
+                        <option value="MEMORANDUM">{{'generalAccountingApp.AccountType.MEMORANDUM' | translate}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.generalAccount.generalAccountCurrency" for="field_generalAccountCurrency">General Account Currency</label>
+                    <select class="form-control" id="field_generalAccountCurrency" name="generalAccountCurrency" [(ngModel)]="generalAccount.generalAccountCurrency" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="currencyOption.id === generalAccount.generalAccountCurrency?.id ? generalAccount.generalAccountCurrency : currencyOption" *ngFor="let currencyOption of currencies; trackBy: trackCurrencyById">{{currencyOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

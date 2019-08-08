@@ -1,0 +1,32 @@
+{
+    "name": "TrialBalance",
+    "fields": [
+        {
+            "fieldName": "debit",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "credit",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "trialBalance",
+            "otherEntityName": "generalAccount",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "trialBalance"
+        }
+    ],
+    "changelogDate": "20190808143245",
+    "entityTableName": "trial_balance",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

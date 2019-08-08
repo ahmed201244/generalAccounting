@@ -1,0 +1,86 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="generalAccountingApp.cashBook.home.title">Cash Books</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-cash-book" [routerLink]="['/cash-book/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="generalAccountingApp.cashBook.home.createLabel">
+            Create new Cash Book
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="cashBooks">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="date"><span jhiTranslate="generalAccountingApp.cashBook.date">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="amount"><span jhiTranslate="generalAccountingApp.cashBook.amount">Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="transactionType"><span jhiTranslate="generalAccountingApp.cashBook.transactionType">Transaction Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="uuid"><span jhiTranslate="generalAccountingApp.cashBook.uuid">Uuid</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tansactionCurrency.id"><span jhiTranslate="generalAccountingApp.cashBook.tansactionCurrency">Tansaction Currency</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fromAccount.id"><span jhiTranslate="generalAccountingApp.cashBook.fromAccount">From Account</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="toAccount.id"><span jhiTranslate="generalAccountingApp.cashBook.toAccount">To Account</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let cashBook of cashBooks ;trackBy: trackId">
+                <td><a [routerLink]="['/cash-book', cashBook.id, 'view' ]">{{cashBook.id}}</a></td>
+                <td>{{cashBook.date | date:'medium'}}</td>
+                <td>{{cashBook.amount}}</td>
+                <td jhiTranslate="{{'generalAccountingApp.TransactionType.' + cashBook.transactionType}}">{{cashBook.transactionType}}</td>
+                <td>{{cashBook.uuid}}</td>
+                <td>
+                    <div *ngIf="cashBook.tansactionCurrency">
+                        <a [routerLink]="['../currency', cashBook.tansactionCurrency?.id, 'view' ]" >{{cashBook.tansactionCurrency?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="cashBook.fromAccount">
+                        <a [routerLink]="['../general-account', cashBook.fromAccount?.id, 'view' ]" >{{cashBook.fromAccount?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="cashBook.toAccount">
+                        <a [routerLink]="['../general-account', cashBook.toAccount?.id, 'view' ]" >{{cashBook.toAccount?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/cash-book', cashBook.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/cash-book', cashBook.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'cash-book', { outlets: { popup: cashBook.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="cashBooks && cashBooks.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

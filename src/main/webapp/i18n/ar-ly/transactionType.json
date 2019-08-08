@@ -1,0 +1,9 @@
+{
+    "generalAccountingApp": {
+        "TransactionType": {
+            "null": "",
+            "CREDIT": "CREDIT",
+            "DEBIT": "DEBIT"
+        }
+    }
+}

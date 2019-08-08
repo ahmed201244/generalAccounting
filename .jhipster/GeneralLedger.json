@@ -1,0 +1,44 @@
+{
+    "name": "GeneralLedger",
+    "fields": [
+        {
+            "fieldName": "date",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "transactionsSumDr",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "transactionsSumCr",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "balanceSumDr",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "balanceSumCr",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "accountLedger",
+            "otherEntityName": "generalAccount",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "generalLedger"
+        }
+    ],
+    "changelogDate": "20190808143246",
+    "entityTableName": "general_ledger",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

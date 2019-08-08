@@ -1,0 +1,57 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="cashBook">
+            <h2><span jhiTranslate="generalAccountingApp.cashBook.detail.title">Cash Book</span> {{cashBook.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="generalAccountingApp.cashBook.date">Date</span></dt>
+                <dd>
+                    <span>{{cashBook.date}}</span>
+                </dd>
+                <dt><span jhiTranslate="generalAccountingApp.cashBook.amount">Amount</span></dt>
+                <dd>
+                    <span>{{cashBook.amount}}</span>
+                </dd>
+                <dt><span jhiTranslate="generalAccountingApp.cashBook.transactionType">Transaction Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'generalAccountingApp.TransactionType.' + cashBook.transactionType}}">{{cashBook.transactionType}}</span>
+                </dd>
+                <dt><span jhiTranslate="generalAccountingApp.cashBook.uuid">Uuid</span></dt>
+                <dd>
+                    <span>{{cashBook.uuid}}</span>
+                </dd>
+                <dt><span jhiTranslate="generalAccountingApp.cashBook.tansactionCurrency">Tansaction Currency</span></dt>
+                <dd>
+                    <div *ngIf="cashBook.tansactionCurrency">
+                        <a [routerLink]="['/currency', cashBook.tansactionCurrency?.id, 'view']">{{cashBook.tansactionCurrency?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="generalAccountingApp.cashBook.fromAccount">From Account</span></dt>
+                <dd>
+                    <div *ngIf="cashBook.fromAccount">
+                        <a [routerLink]="['/general-account', cashBook.fromAccount?.id, 'view']">{{cashBook.fromAccount?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="generalAccountingApp.cashBook.toAccount">To Account</span></dt>
+                <dd>
+                    <div *ngIf="cashBook.toAccount">
+                        <a [routerLink]="['/general-account', cashBook.toAccount?.id, 'view']">{{cashBook.toAccount?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/cash-book', cashBook.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

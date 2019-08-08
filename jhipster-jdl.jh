@@ -1,21 +1,32 @@
-entity Currency {
-code	String, 
-description String }
 
-entity Transaction {
-fromAccount String,
-toAccount String,
-date Instant,
-Amount Double,
-Narrative String, transactionType TransactionType, 
+entity Currency {
+code	String unique required, 
+description String required }
+
+entity CashBook {
+date Instant required,
+amount Double required,
+transactionType TransactionType
 uuid String}
 
 entity GeneralAccount {
-code	String, 
-description String,
-type AccountType,
-balance Double }
+code	String unique required, 
+description String required,
+type AccountType required}
 
+entity TrialBalance
+{
+    debit BigDecimal,
+    credit BigDecimal
+}
+entity GeneralLedger{
+	date Instant,
+    transactionsSumDr BigDecimal,
+    transactionsSumCr BigDecimal,
+    balanceSumDr BigDecimal,
+    balanceSumCr BigDecimal
+    
+}
 
 
 
@@ -31,17 +42,22 @@ enum TransactionType {
 
 // Set service options to all except few
 service all with serviceImpl 
-
 // Set an angular suffix
 // angularSuffix * with mySuffix
 // defining multiple OneToMany relationships with comments
-relationship OneToMany {
-	GeneralAccount{fromAccount} to Transaction,
-    GeneralAccount{toAccount} to Transaction,
-    GeneralAccount{currency} to Currency
+relationship OneToOne
+{
+TrialBalance  {trialBalance} to  GeneralAccount,
+GeneralLedger{accountLedger} to GeneralAccount
+ 
 }
+
 relationship ManyToOne {
-	Currency{currency} to Transaction
+GeneralAccount{GeneralAccountCurrency} to Currency ,
+  CashBook{TansactionCurrency} to Currency,
+  CashBook {fromAccount}  to   GeneralAccount,
+  CashBook {toAccount}  to   GeneralAccount
 }
+paginate * with pagination
 
 

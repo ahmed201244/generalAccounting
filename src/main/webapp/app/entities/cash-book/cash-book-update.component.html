@@ -1,0 +1,89 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-cash-book-heading" jhiTranslate="generalAccountingApp.cashBook.home.createOrEditLabel">Create or edit a Cash Book</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!cashBook.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="cashBook.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.cashBook.date" for="field_date">Date</label>
+                    <div class="d-flex">
+                        <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="date" placeholder="YYYY-MM-DD HH:mm"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.date?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.date?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.cashBook.amount" for="field_amount">Amount</label>
+                    <input type="number" class="form-control" name="amount" id="field_amount"
+                        [(ngModel)]="cashBook.amount" required/>
+                    <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.amount?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.amount?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.cashBook.transactionType" for="field_transactionType">Transaction Type</label>
+                    <select class="form-control" name="transactionType" [(ngModel)]="cashBook.transactionType" id="field_transactionType" >
+                        <option value="CREDIT">{{'generalAccountingApp.TransactionType.CREDIT' | translate}}</option>
+                        <option value="DEBIT">{{'generalAccountingApp.TransactionType.DEBIT' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.cashBook.uuid" for="field_uuid">Uuid</label>
+                    <input type="text" class="form-control" name="uuid" id="field_uuid"
+                        [(ngModel)]="cashBook.uuid" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.cashBook.tansactionCurrency" for="field_tansactionCurrency">Tansaction Currency</label>
+                    <select class="form-control" id="field_tansactionCurrency" name="tansactionCurrency" [(ngModel)]="cashBook.tansactionCurrency" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="currencyOption.id === cashBook.tansactionCurrency?.id ? cashBook.tansactionCurrency : currencyOption" *ngFor="let currencyOption of currencies; trackBy: trackCurrencyById">{{currencyOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.cashBook.fromAccount" for="field_fromAccount">From Account</label>
+                    <select class="form-control" id="field_fromAccount" name="fromAccount" [(ngModel)]="cashBook.fromAccount" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="generalAccountOption.id === cashBook.fromAccount?.id ? cashBook.fromAccount : generalAccountOption" *ngFor="let generalAccountOption of generalaccounts; trackBy: trackGeneralAccountById">{{generalAccountOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.cashBook.toAccount" for="field_toAccount">To Account</label>
+                    <select class="form-control" id="field_toAccount" name="toAccount" [(ngModel)]="cashBook.toAccount" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="generalAccountOption.id === cashBook.toAccount?.id ? cashBook.toAccount : generalAccountOption" *ngFor="let generalAccountOption of generalaccounts; trackBy: trackGeneralAccountById">{{generalAccountOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

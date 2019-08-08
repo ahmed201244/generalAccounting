@@ -38,6 +38,11 @@ public class CacheConfiguration {
             cm.createCache(com.project.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.project.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.project.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.project.domain.Currency.class.getName(), jcacheConfiguration);
+            cm.createCache(com.project.domain.CashBook.class.getName(), jcacheConfiguration);
+            cm.createCache(com.project.domain.GeneralAccount.class.getName(), jcacheConfiguration);
+            cm.createCache(com.project.domain.TrialBalance.class.getName(), jcacheConfiguration);
+            cm.createCache(com.project.domain.GeneralLedger.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

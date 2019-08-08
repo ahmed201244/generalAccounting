@@ -1,0 +1,12 @@
+{
+    "generalAccountingApp": {
+        "AccountType": {
+            "null": "",
+            "ASSET": "ASSET",
+            "LIABILITY": "LIABILITY",
+            "INCOME": "INCOME",
+            "EXPENDITURE": "EXPENDITURE",
+            "MEMORANDUM": "MEMORANDUM"
+        }
+    }
+}

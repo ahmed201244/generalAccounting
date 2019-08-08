@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="generalLedger">
+            <h2><span jhiTranslate="generalAccountingApp.generalLedger.detail.title">General Ledger</span> {{generalLedger.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="generalAccountingApp.generalLedger.date">Date</span></dt>
+                <dd>
+                    <span>{{generalLedger.date}}</span>
+                </dd>
+                <dt><span jhiTranslate="generalAccountingApp.generalLedger.transactionsSumDr">Transactions Sum Dr</span></dt>
+                <dd>
+                    <span>{{generalLedger.transactionsSumDr}}</span>
+                </dd>
+                <dt><span jhiTranslate="generalAccountingApp.generalLedger.transactionsSumCr">Transactions Sum Cr</span></dt>
+                <dd>
+                    <span>{{generalLedger.transactionsSumCr}}</span>
+                </dd>
+                <dt><span jhiTranslate="generalAccountingApp.generalLedger.balanceSumDr">Balance Sum Dr</span></dt>
+                <dd>
+                    <span>{{generalLedger.balanceSumDr}}</span>
+                </dd>
+                <dt><span jhiTranslate="generalAccountingApp.generalLedger.balanceSumCr">Balance Sum Cr</span></dt>
+                <dd>
+                    <span>{{generalLedger.balanceSumCr}}</span>
+                </dd>
+                <dt><span jhiTranslate="generalAccountingApp.generalLedger.accountLedger">Account Ledger</span></dt>
+                <dd>
+                    <div *ngIf="generalLedger.accountLedger">
+                        <a [routerLink]="['/general-account', generalLedger.accountLedger?.id, 'view']">{{generalLedger.accountLedger?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/general-ledger', generalLedger.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

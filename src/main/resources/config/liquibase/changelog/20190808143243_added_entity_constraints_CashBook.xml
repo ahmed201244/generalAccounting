@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity CashBook.
+    -->
+    <changeSet id="20190808143243-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="tansaction_currency_id"
+                                 baseTableName="cash_book"
+                                 constraintName="fk_cash_book_tansaction_currency_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="currency"/>
+
+        <addForeignKeyConstraint baseColumnNames="from_account_id"
+                                 baseTableName="cash_book"
+                                 constraintName="fk_cash_book_from_account_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="general_account"/>
+
+        <addForeignKeyConstraint baseColumnNames="to_account_id"
+                                 baseTableName="cash_book"
+                                 constraintName="fk_cash_book_to_account_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="general_account"/>
+
+    </changeSet>
+</databaseChangeLog>

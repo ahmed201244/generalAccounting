@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-general-ledger-heading" jhiTranslate="generalAccountingApp.generalLedger.home.createOrEditLabel">Create or edit a General Ledger</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!generalLedger.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="generalLedger.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.generalLedger.date" for="field_date">Date</label>
+                    <div class="d-flex">
+                        <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="date" placeholder="YYYY-MM-DD HH:mm"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.generalLedger.transactionsSumDr" for="field_transactionsSumDr">Transactions Sum Dr</label>
+                    <input type="number" class="form-control" name="transactionsSumDr" id="field_transactionsSumDr"
+                        [(ngModel)]="generalLedger.transactionsSumDr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.generalLedger.transactionsSumCr" for="field_transactionsSumCr">Transactions Sum Cr</label>
+                    <input type="number" class="form-control" name="transactionsSumCr" id="field_transactionsSumCr"
+                        [(ngModel)]="generalLedger.transactionsSumCr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.generalLedger.balanceSumDr" for="field_balanceSumDr">Balance Sum Dr</label>
+                    <input type="number" class="form-control" name="balanceSumDr" id="field_balanceSumDr"
+                        [(ngModel)]="generalLedger.balanceSumDr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.generalLedger.balanceSumCr" for="field_balanceSumCr">Balance Sum Cr</label>
+                    <input type="number" class="form-control" name="balanceSumCr" id="field_balanceSumCr"
+                        [(ngModel)]="generalLedger.balanceSumCr" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="generalAccountingApp.generalLedger.accountLedger" for="field_accountLedger">Account Ledger</label>
+                    <select class="form-control" id="field_accountLedger" name="accountLedger" [(ngModel)]="generalLedger.accountLedger">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="generalAccountOption.id === generalLedger.accountLedger?.id ? generalLedger.accountLedger : generalAccountOption" *ngFor="let generalAccountOption of accountledgers; trackBy: trackGeneralAccountById">{{generalAccountOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

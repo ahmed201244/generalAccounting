@@ -1,5 +1,6 @@
 package com.project.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,8 +27,6 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
     private final Logger log = LoggerFactory.getLogger(TrialBalanceServiceImpl.class);
 
     private final TrialBalanceRepository trialBalanceRepository;
-    @Autowired
-    private CashBookRepository cashBookRepository;
     @Autowired
     GeneralAccountServiceImpl generalAccountServiceImpl;
 
@@ -58,16 +57,31 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
     public Page<TrialBalance> findAll(Pageable pageable) {
         log.debug("Request to get all TrialBalances");
 
-        List<TrialBalance> trialBalances = trialBalanceRepository.findAllTrialBalances();
-        System.out.println("trialBalances:::::::::::" + trialBalances);
-        for (TrialBalance trialBalance : trialBalances) {
-            System.out.println("trialBalance::::::::::  " + trialBalance);
-            // trialBalance.setTrialBalance(generalAccountServiceImpl.findOne((long)
-            // trialBalance.getTrialBalance().getId()).get());
-            save(trialBalance);
-        }
-        System.out.println("trialBalances:" + trialBalances);
-        return trialBalanceRepository.findAll(pageable);
+        Page<TrialBalance> trialBalances = trialBalanceRepository.findAllTrialBalances(pageable);
+        // System.out.println("trialBalances:::::::::Before::::::::"+trialBalances.getContent());
+        // // System.out.println("trialBalanceRepository.findAll():::::::::::::::"+trialBalanceRepository.findAll());
+        // // System.out.println("trialBalances:::::::::::" + trialBalances);
+        // for (TrialBalance trialBalance : trialBalances) {
+        //     // System.out.println("trialBalance:::::::::::" + trialBalance);
+        //     int returnVal = trialBalance.getCredit().compareTo(trialBalance.getDebit());
+        //      if (returnVal == -1) {
+        //         trialBalance.setCredit(BigDecimal.ZERO);
+        //         trialBalance.setDebit(trialBalance.getDebit().subtract(trialBalance.getCredit()));
+        //     } else if (returnVal == 1)
+        //     {
+        //         trialBalance.setDebit(BigDecimal.ZERO);
+        //         trialBalance.setCredit(trialBalance.getCredit().subtract(trialBalance.getDebit()));
+        //     }
+            
+
+        //     if (returnVal != 0) {
+        //         trialBalanceRepository.save(trialBalance);
+        //     } 
+        //     System.out.println("trialBalances:::::::::After::::::::"+trialBalances.getContent());
+
+        // }
+        
+        return trialBalances;
     }
 
     /**

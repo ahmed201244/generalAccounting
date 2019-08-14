@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "trial_balance")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class TrialBalance implements Serializable {
 
     private static final long serialVersionUID = 1L;

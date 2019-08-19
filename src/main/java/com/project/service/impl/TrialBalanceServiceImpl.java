@@ -1,11 +1,9 @@
 package com.project.service.impl;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
 
 import com.project.domain.TrialBalance;
-import com.project.repository.CashBookRepository;
 import com.project.repository.TrialBalanceRepository;
 import com.project.service.TrialBalanceService;
 
@@ -57,26 +55,27 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
     public Page<TrialBalance> findAll(Pageable pageable) {
         log.debug("Request to get all TrialBalances");
 
+        trialBalanceRepository.deleteAll();
+
         Page<TrialBalance> trialBalances = trialBalanceRepository.findAllTrialBalances(pageable);
-        // // System.out.println("trialBalances:::::::::::" + trialBalances);
+
         for (TrialBalance trialBalance : trialBalances.getContent()) {
-            // System.out.println("trialBalance:::::::::::" + trialBalance);
-            // int returnVal = trialBalance.getCredit().compareTo(trialBalance.getDebit());
-            //  if (returnVal == -1) {
-            //     trialBalance.setCredit(BigDecimal.ZERO);
-            //     trialBalance.setDebit(trialBalance.getDebit().subtract(trialBalance.getCredit()));
-            // } else if (returnVal == 1) 
-            // {
-            //     trialBalance.setDebit(BigDecimal.ZERO);
-            //     trialBalance.setCredit(trialBalance.getCredit().subtract(trialBalance.getDebit()));
-            // }
+            int returnVal = trialBalance.getCredit().compareTo(trialBalance.getDebit());
+             if (returnVal == -1) {
+                trialBalance.setDebit(trialBalance.getDebit().subtract(trialBalance.getCredit()));
+                trialBalance.setCredit(BigDecimal.ZERO);
+
+            } else if (returnVal == 1) 
+            {
+                trialBalance.setCredit(trialBalance.getCredit().subtract(trialBalance.getDebit()));
+                trialBalance.setDebit(BigDecimal.ZERO);
+
+            }
             
 
-            // if (returnVal != 0) {
-                // trialBalance.setId(null);
+            if (returnVal != 0) {
                 save(trialBalance);
-            // } 
-            // System.out.println("trialBalances:::::::::After::::::::"+trialBalance);
+            } 
 
         }
         

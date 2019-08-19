@@ -41,7 +41,7 @@ public class GeneralLedger implements Serializable {
     private BigDecimal balanceSumCr;
 
     @OneToOne
-    @JoinColumn(unique = true)
+    @JoinColumn(unique = false)
     private GeneralAccount accountLedger;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

@@ -11,13 +11,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 /**
  * Service Implementation for managing GeneralLedger.
  */
 @Service
-@Transactional
+// @Transactional
 public class GeneralLedgerServiceImpl implements GeneralLedgerService {
 
     private final Logger log = LoggerFactory.getLogger(GeneralLedgerServiceImpl.class);
@@ -47,12 +48,30 @@ public class GeneralLedgerServiceImpl implements GeneralLedgerService {
      * @return the list of entities
      */
     @Override
-    @Transactional(readOnly = true)
+    // @Transactional(readOnly = true)
     public Page<GeneralLedger> findAll(Pageable pageable) {
         log.debug("Request to get all GeneralLedgers");
-        return generalLedgerRepository.findAll(pageable);
-    }
+        
+        Page<GeneralLedger> generalLedgers = generalLedgerRepository.findAllGeneralLedgers(pageable);
+        for (GeneralLedger generalLedger : generalLedgers.getContent()) {
+            int result = generalLedger.getBalanceSumCr().compareTo(generalLedger.getBalanceSumDr());
+            if (result == -1) {
+                generalLedger.setBalanceSumDr(generalLedger.getBalanceSumDr().subtract(generalLedger.getBalanceSumCr()));
+                generalLedger.setBalanceSumCr(BigDecimal.ZERO);
+            } else if (result == 1) {
+                generalLedger.setBalanceSumCr(generalLedger.getBalanceSumCr().subtract(generalLedger.getBalanceSumDr()));
+                generalLedger.setBalanceSumDr(BigDecimal.ZERO);
+            }
+            else
+            {
+                generalLedger.setBalanceSumDr(BigDecimal.ZERO);
+                generalLedger.setBalanceSumCr(BigDecimal.ZERO);
 
+            }
+            save(generalLedger);
+        }
+        return generalLedgers;
+    }
 
     /**
      * Get one generalLedger by id.
@@ -74,6 +93,7 @@ public class GeneralLedgerServiceImpl implements GeneralLedgerService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete GeneralLedger : {}", id);        generalLedgerRepository.deleteById(id);
+        log.debug("Request to delete GeneralLedger : {}", id);
+        generalLedgerRepository.deleteById(id);
     }
 }

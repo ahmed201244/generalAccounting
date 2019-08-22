@@ -1,0 +1,14 @@
+Asset = Liability + Capital
+
+increase A increase (L or C)
+Debit Asset Credit Liability [from Asset to Liability or Capital]
+decrease A decrease (L or C)
+Debit Liability Credit Asset [from Liability to Asset]
+
+increase Asset1 		decrease Asset2
+Debit Asset1 Credit Asset2 [from Asset1 to Asset2]
+increase Liability1 decrease Liability2
+Debit Liability2 credit Liability1 [from liability2 to Liability]
+
+
+

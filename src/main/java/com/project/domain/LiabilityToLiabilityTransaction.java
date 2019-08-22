@@ -50,30 +50,15 @@ public class LiabilityToLiabilityTransaction implements Transaction {
     @Override
     public TransactionType getTransactionType(GeneralAccount fromAccount, GeneralAccount toAccount) {
         if (fromAccount != null) {
-            if (fromAccount.getType() == AccountType.ASSET) {
-                return TransactionType.CREDIT;
-            } else if (fromAccount.getType() == AccountType.LIABILITY) {
+           
+            if (fromAccount.getType() == AccountType.LIABILITY) {
                 return TransactionType.DEBIT;
-            } else if (fromAccount.getType() == AccountType.INCOME) {
-                return TransactionType.CREDIT;
-            } else if (fromAccount.getType() == AccountType.EXPENDITURE) {
-                return TransactionType.CREDIT;
-            } else if (fromAccount.getType() == AccountType.CAPITAL) {
-                return TransactionType.DEBIT;
-            }
+            } 
         }
         if (toAccount != null) {
-            if (toAccount.getType() == AccountType.ASSET) {
-                return TransactionType.DEBIT;
-            } else if (toAccount.getType() == AccountType.LIABILITY) {
+            if (toAccount.getType() == AccountType.LIABILITY) {
                 return TransactionType.CREDIT;
-            } else if (toAccount.getType() == AccountType.INCOME) {
-                return TransactionType.DEBIT;
-            } else if (toAccount.getType() == AccountType.EXPENDITURE) {
-                return TransactionType.DEBIT;
-            } else if (toAccount.getType() == AccountType.CAPITAL) {
-                return TransactionType.CREDIT;
-            }
+            } 
         }
 
         return null;

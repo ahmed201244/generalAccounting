@@ -51,12 +51,12 @@ public class AssetToAssetTransaction implements Transaction {
     public TransactionType getTransactionType(GeneralAccount fromAccount, GeneralAccount toAccount) {
         if (fromAccount != null) {
             if (fromAccount.getType() == AccountType.ASSET) {
-                return TransactionType.CREDIT;
+                return TransactionType.DEBIT;
             }
         }
         if (toAccount != null) {
             if (toAccount.getType() == AccountType.ASSET) {
-                return TransactionType.DEBIT;
+                return TransactionType.CREDIT;
             }
         }
 

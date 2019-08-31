@@ -39,6 +39,9 @@
                         <option value="INCOME">{{'generalAccountingApp.AccountType.INCOME' | translate}}</option>
                         <option value="EXPENDITURE">{{'generalAccountingApp.AccountType.EXPENDITURE' | translate}}</option>
                         <option value="MEMORANDUM">{{'generalAccountingApp.AccountType.MEMORANDUM' | translate}}</option>
+                        <option value="CAPITAL">{{'generalAccountingApp.AccountType.CAPITAL' | translate}}</option>
+                        <option value="DRAWING">{{'generalAccountingApp.AccountType.DRAWING' | translate}}</option>
+                        
                     </select>
                     <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
                         <small class="form-text text-danger"

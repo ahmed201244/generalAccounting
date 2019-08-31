@@ -5,7 +5,9 @@ export const enum AccountType {
     LIABILITY = 'LIABILITY',
     INCOME = 'INCOME',
     EXPENDITURE = 'EXPENDITURE',
-    MEMORANDUM = 'MEMORANDUM'
+    MEMORANDUM = 'MEMORANDUM',
+    CAPITAL = 'CAPITAL',
+    DRAWING = 'DRAWING'
 }
 
 export interface IGeneralAccount {

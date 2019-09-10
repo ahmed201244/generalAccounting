@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatement" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6cc0ce49-091e-41b1-8601-1f29c8c7ebee">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MYSQL"/>
+	<queryString language="SQL">
+		<![CDATA[select general_account.id,general_account.code, general_account.description,general_account.jhi_type,
+general_ledger.balance_sum_dr,
+general_ledger.balance_sum_cr 
+from general_account,general_ledger
+where general_account.id = general_ledger.id
+and general_account.jhi_type IN ('INCOME', 'EXPENDITURE')]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="general_account"/>
+	</field>
+	<field name="code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="general_account"/>
+	</field>
+	<field name="description" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="general_account"/>
+	</field>
+	<field name="jhi_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="jhi_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="general_account"/>
+	</field>
+	<field name="balance_sum_dr" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="balance_sum_dr"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="general_ledger"/>
+	</field>
+	<field name="balance_sum_cr" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="balance_sum_cr"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="general_ledger"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="147" y="10" width="260" height="30" uuid="8114b4fe-1129-42fb-a8fa-f3930096f5aa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Statement of Profit & Loss]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="71" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="227" y="2" width="100" height="28" uuid="021a55ba-28f7-4c9e-8b8d-cf69a7b122ad"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="54" y="0" width="100" height="30" uuid="47d04af4-f225-488c-b2d0-9e5d9cb50b49">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="064bfe77-cf33-46ef-b3ef-e6d6d0b313fc"/>
+				</reportElement>
+				<text><![CDATA[code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="0" width="100" height="30" uuid="283d9ede-0b7f-481e-a2e1-1a13a39be470">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c0b0ec0d-cecd-4147-a097-476ce3ad440f"/>
+				</reportElement>
+				<text><![CDATA[description]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="54" y="49" width="100" height="30" uuid="2a23e73d-c7dd-4167-a1ea-241b46b9016a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="064bfe77-cf33-46ef-b3ef-e6d6d0b313fc"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="20" width="100" height="30" uuid="02150346-cc90-4f00-b363-67ab81c85ecf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c0b0ec0d-cecd-4147-a097-476ce3ad440f"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

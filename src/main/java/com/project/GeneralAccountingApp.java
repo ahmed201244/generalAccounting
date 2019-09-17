@@ -1,24 +1,28 @@
 package com.project;
 
-import com.project.config.ApplicationProperties;
-import com.project.config.DefaultProfileUtil;
-
-import io.github.jhipster.config.JHipsterConstants;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.core.env.Environment;
-
-import javax.annotation.PostConstruct;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
+
+import javax.annotation.PostConstruct;
+
+import com.project.config.ApplicationProperties;
+import com.project.config.DefaultProfileUtil;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
+
+import io.github.jhipster.config.JHipsterConstants;
 
 @SpringBootApplication
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
@@ -27,6 +31,8 @@ public class GeneralAccountingApp {
     private static final Logger log = LoggerFactory.getLogger(GeneralAccountingApp.class);
 
     private final Environment env;
+    @Autowired
+    ApplicationProperties findAccounts;
 
     public GeneralAccountingApp(Environment env) {
         this.env = env;
@@ -62,6 +68,24 @@ public class GeneralAccountingApp {
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);
+    }
+
+    @Bean
+    CommandLineRunner runner(){
+        return (args)->{
+            System.out.println("singleInventoryAccount: "+findAccounts.singleInventoryAccount);
+            System.out.println("profitAndLossAccount: "+findAccounts.profitAndLossAccount);
+            System.out.println("purchaseAccountCode: "+findAccounts.openInventoryAccount);
+            System.out.println("closeInventoryAccount: "+findAccounts.closeInventoryAccount);
+            System.out.println("salesAccount: "+findAccounts.salesAccount);
+            System.out.println("purchaseAccount: "+findAccounts.purchaseAccount);
+            System.out.println("returnInwardAccount: "+findAccounts.returnInwardAccount);
+            System.out.println("returnOutwardAccount: "+findAccounts.returnOutwardAccount);
+            System.out.println("inventoryAccount: "+findAccounts.inventoryAccount);
+            System.out.println("incomeAccounts: "+findAccounts.incomeAccounts);
+            System.out.println("expenditureAccounts: "+findAccounts.expenditureAccounts);
+            
+        };
     }
 
     private static void logApplicationStartup(Environment env) {

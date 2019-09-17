@@ -123,4 +123,16 @@ jhipster:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 
-# application:
+application:
+  single-inventory-account: false
+  profit-and-loss-account: 'p&L'
+  inventory-account: 'inventory'
+  open-inventory-account: 'OI'
+  close-inventory-account: 'CI'
+  sales-account: 'Sales'
+  purchase-account: 'Purchases'
+  return-inward-account: 'Inward'
+  return-outward-account: 'outward'
+  income-accounts: 10040, 10060, 10070
+  expenditure-accounts: 10040, 10060, 10070
+  

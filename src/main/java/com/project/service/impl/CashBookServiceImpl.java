@@ -6,9 +6,15 @@ import java.util.Optional;
 
 import com.project.domain.AssetToAssetTransaction;
 import com.project.domain.AssetToCapitalTransaction;
+import com.project.domain.AssetToExpenditureTransaction;
+import com.project.domain.AssetToIncomeTransaction;
 import com.project.domain.AssetToLiabilityTransaction;
 import com.project.domain.CapitalToAssetTransaction;
+import com.project.domain.CapitalToExpenditureTransaction;
 import com.project.domain.CashBook;
+import com.project.domain.ExpenditureToAssetTransaction;
+import com.project.domain.ExpenditureToCapitalTransaction;
+import com.project.domain.IncomeToAssetTransaction;
 import com.project.domain.LiabilityToAssetTransaction;
 import com.project.domain.LiabilityToLiabilityTransaction;
 import com.project.domain.Transaction;
@@ -125,6 +131,39 @@ public class CashBookServiceImpl implements CashBookService {
             transaction = new CapitalToAssetTransaction();
             transactionList = transaction.getTransactions(cashBook.getFromAccount(), cashBook.getToAccount(),
                     cashBook.getAmount());
+        } else if (cashBook.getFromAccount().getType() == AccountType.ASSET
+                && cashBook.getToAccount().getType() == AccountType.INCOME) {
+            transaction = new AssetToIncomeTransaction();
+            transactionList = transaction.getTransactions(cashBook.getFromAccount(), cashBook.getToAccount(),
+                    cashBook.getAmount());
+        } else if (cashBook.getFromAccount().getType() == AccountType.ASSET
+                && cashBook.getToAccount().getType() == AccountType.EXPENDITURE) {
+            transaction = new AssetToExpenditureTransaction();
+            transactionList = transaction.getTransactions(cashBook.getFromAccount(), cashBook.getToAccount(),
+                    cashBook.getAmount());
+        } else if (cashBook.getFromAccount().getType() == AccountType.INCOME
+                && cashBook.getToAccount().getType() == AccountType.ASSET) {
+            transaction = new IncomeToAssetTransaction();
+            transactionList = transaction.getTransactions(cashBook.getFromAccount(), cashBook.getToAccount(),
+                    cashBook.getAmount());
+        } else if (cashBook.getFromAccount().getType() == AccountType.EXPENDITURE
+                && cashBook.getToAccount().getType() == AccountType.ASSET) {
+            transaction = new ExpenditureToAssetTransaction();
+            transactionList = transaction.getTransactions(cashBook.getFromAccount(), cashBook.getToAccount(),
+                    cashBook.getAmount());
+
+        } else if (cashBook.getFromAccount().getType() == AccountType.EXPENDITURE
+                && cashBook.getToAccount().getType() == AccountType.CAPITAL) {
+            transaction = new ExpenditureToCapitalTransaction();
+            transactionList = transaction.getTransactions(cashBook.getFromAccount(), cashBook.getToAccount(),
+                    cashBook.getAmount());
+
+        } else if (cashBook.getFromAccount().getType() == AccountType.CAPITAL
+                && cashBook.getToAccount().getType() == AccountType.EXPENDITURE) {
+            transaction = new CapitalToExpenditureTransaction();
+            transactionList = transaction.getTransactions(cashBook.getFromAccount(), cashBook.getToAccount(),
+                    cashBook.getAmount());
+
         }
         for (CashBook entry : transactionList) {
             cashBookRepository.save(entry);

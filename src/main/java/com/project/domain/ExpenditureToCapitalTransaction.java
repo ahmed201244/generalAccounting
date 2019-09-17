@@ -8,7 +8,7 @@ import java.util.UUID;
 import com.project.domain.enumeration.AccountType;
 import com.project.domain.enumeration.TransactionType;
 
-public class AssetToLiabilityTransaction implements Transaction {
+public class ExpenditureToCapitalTransaction implements Transaction {
     
 
     @Override
@@ -50,13 +50,13 @@ public class AssetToLiabilityTransaction implements Transaction {
     @Override
     public TransactionType getTransactionType(GeneralAccount fromAccount, GeneralAccount toAccount) {
         if (fromAccount != null) {
-            if (fromAccount.getType() == AccountType.ASSET) {
+            if (fromAccount.getType() == AccountType.EXPENDITURE) {
                 return TransactionType.CREDIT;
             } 
         }
         if (toAccount != null) {
            
-             if (toAccount.getType() == AccountType.LIABILITY) {
+             if (toAccount.getType() == AccountType.CAPITAL) {
                 return TransactionType.DEBIT;
             } 
         }

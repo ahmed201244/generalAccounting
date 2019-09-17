@@ -51,7 +51,7 @@ public class GeneralLedgerServiceImpl implements GeneralLedgerService {
     // @Transactional(readOnly = true)
     public Page<GeneralLedger> findAll(Pageable pageable) {
         log.debug("Request to get all GeneralLedgers");
-        
+        generalLedgerRepository.deleteAll();
         Page<GeneralLedger> generalLedgers = generalLedgerRepository.findAllGeneralLedgers(pageable);
         for (GeneralLedger generalLedger : generalLedgers.getContent()) {
             int result = generalLedger.getBalanceSumCr().compareTo(generalLedger.getBalanceSumDr());

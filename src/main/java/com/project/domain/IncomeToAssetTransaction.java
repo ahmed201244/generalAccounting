@@ -50,13 +50,13 @@ public class IncomeToAssetTransaction implements Transaction {
     @Override
     public TransactionType getTransactionType(GeneralAccount fromAccount, GeneralAccount toAccount) {
         if (fromAccount != null) {
-            if (fromAccount.getType() == AccountType.ASSET) {
-                return TransactionType.DEBIT;
+            if (fromAccount.getType() == AccountType.INCOME) {
+                return TransactionType.CREDIT;
             }
         }
         if (toAccount != null) {
             if (toAccount.getType() == AccountType.ASSET) {
-                return TransactionType.CREDIT;
+                return TransactionType.DEBIT;
             }
         }
 

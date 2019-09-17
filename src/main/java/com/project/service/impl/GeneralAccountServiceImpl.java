@@ -74,6 +74,7 @@ public class GeneralAccountServiceImpl implements GeneralAccountService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete GeneralAccount : {}", id);        generalAccountRepository.deleteById(id);
+        log.debug("Request to delete GeneralAccount : {}", id);        
+        generalAccountRepository.deleteById(id);
     }
 }

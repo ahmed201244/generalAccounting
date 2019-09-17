@@ -51,13 +51,13 @@ public class CapitalToAssetTransaction implements Transaction {
     public TransactionType getTransactionType(GeneralAccount fromAccount, GeneralAccount toAccount) {
         if (fromAccount != null) {
             if (fromAccount.getType() == AccountType.CAPITAL) {
-                return TransactionType.DEBIT;
+                return TransactionType.CREDIT;
             } 
         }
         if (toAccount != null) {
            
              if (toAccount.getType() == AccountType.ASSET) {
-                return TransactionType.CREDIT;
+                return TransactionType.DEBIT;
             } 
         }
 

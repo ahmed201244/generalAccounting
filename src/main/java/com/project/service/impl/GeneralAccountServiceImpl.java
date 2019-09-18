@@ -1,17 +1,19 @@
 package com.project.service.impl;
 
-import com.project.service.GeneralAccountService;
+import java.util.List;
+import java.util.Optional;
+
 import com.project.domain.GeneralAccount;
+import com.project.domain.enumeration.AccountType;
 import com.project.repository.GeneralAccountRepository;
+import com.project.service.GeneralAccountService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 /**
  * Service Implementation for managing GeneralAccount.
@@ -76,5 +78,14 @@ public class GeneralAccountServiceImpl implements GeneralAccountService {
     public void delete(Long id) {
         log.debug("Request to delete GeneralAccount : {}", id);        
         generalAccountRepository.deleteById(id);
+    }
+
+    public Optional<GeneralAccount> findByCode(String code) {
+        log.debug("Request to get GeneralAccount By Code: {}", code); 
+        return generalAccountRepository.findByCode(code);
+    }
+    public List<GeneralAccount> findByType(AccountType type) {
+        log.debug("Request to get GeneralAccount By JhiType: {}", type); 
+        return generalAccountRepository.findByType(type);
     }
 }

@@ -9,6 +9,8 @@ import javax.annotation.PostConstruct;
 
 import com.project.config.ApplicationProperties;
 import com.project.config.DefaultProfileUtil;
+import com.project.domain.enumeration.AccountType;
+import com.project.service.impl.GeneralAccountServiceImpl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -33,6 +35,9 @@ public class GeneralAccountingApp {
     private final Environment env;
     @Autowired
     ApplicationProperties findAccounts;
+
+    @Autowired
+    GeneralAccountServiceImpl generalAccountServiceImpl;
 
     public GeneralAccountingApp(Environment env) {
         this.env = env;
@@ -73,6 +78,7 @@ public class GeneralAccountingApp {
     @Bean
     CommandLineRunner runner(){
         return (args)->{
+            // System.out.println(generalAccountServiceImpl.findByType(AccountType.EXPENDITURE));
             System.out.println("singleInventoryAccount: "+findAccounts.singleInventoryAccount);
             System.out.println("profitAndLossAccount: "+findAccounts.profitAndLossAccount);
             System.out.println("purchaseAccountCode: "+findAccounts.openInventoryAccount);

@@ -125,14 +125,14 @@ jhipster:
 
 application:
   single-inventory-account: false
-  profit-and-loss-account: 'p&L'
-  inventory-account: 'inventory'
-  open-inventory-account: 'OI'
-  close-inventory-account: 'CI'
-  sales-account: 'Sales'
-  purchase-account: 'Purchases'
-  return-inward-account: 'Inward'
-  return-outward-account: 'outward'
+  profit-and-loss-account: '80030'
+  inventory-account: 
+  open-inventory-account: 
+  close-inventory-account: '10080'
+  sales-account: '10040'
+  purchase-account: '10050'
+  return-inward-account: '10060'
+  return-outward-account: '10070'
   income-accounts: 10040, 10060, 10070
   expenditure-accounts: 10040, 10060, 10070
   

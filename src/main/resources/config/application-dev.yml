@@ -124,6 +124,7 @@ jhipster:
 # ===================================================================
 
 application:
+  currency-code: 'SDG'
   single-inventory-account: false
   profit-and-loss-account: '80030'
   inventory-account: 

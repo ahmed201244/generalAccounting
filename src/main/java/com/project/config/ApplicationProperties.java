@@ -7,8 +7,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * Properties specific to General Accounting.
  * <p>
- * Properties are configured in the application.yml file.
- * See {@link io.github.jhipster.config.JHipsterProperties} for a good example.
+ * Properties are configured in the application.yml file. See
+ * {@link io.github.jhipster.config.JHipsterProperties} for a good example.
  */
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
@@ -23,7 +23,7 @@ public class ApplicationProperties {
     public String inventoryAccount;
     public List<String> incomeAccounts;
     public List<String> expenditureAccounts;
-
+    public String currencyCode;
 
     public boolean isSingleInventoryAccount() {
         return this.singleInventoryAccount;
@@ -117,8 +117,18 @@ public class ApplicationProperties {
         this.expenditureAccounts = expenditureAccounts;
     }
 
-  
-   
-    
+    /**
+     * @return the currency
+     */
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    /**
+     * @param currency the currency to set
+     */
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
+    }
 
 }

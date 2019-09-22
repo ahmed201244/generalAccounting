@@ -21,7 +21,8 @@ public class GetAccountsServiceImpl implements GetAccountsService {
 
     @Override
     public List<GeneralAccount> getAllAccounts() {
-        // This will return all the account related to the calculation of Profit and Loss Statement.
+        // This will return all the account related to the calculation of Profit and
+        // Loss Statement.
         List<GeneralAccount> allAccounts = new ArrayList<>();
         // Add Inventory Account or Accounts
         allAccounts.addAll(getInventoryAccounts());
@@ -52,13 +53,24 @@ public class GetAccountsServiceImpl implements GetAccountsService {
     public List<GeneralAccount> getInventoryAccounts() {
         List<GeneralAccount> inventoryAccounts = new ArrayList<GeneralAccount>();
         if (applicationProperties.getSingleInventoryAccount()) {
-            inventoryAccounts.add(generalAccountServiceImpl.findByCode(applicationProperties.getInventoryAccount()).get());
+            inventoryAccounts
+                    .add(generalAccountServiceImpl.findByCode(applicationProperties.getInventoryAccount()).get());
         } else {
             inventoryAccounts.add(generalAccountServiceImpl.findByCode(applicationProperties.getSalesAccount()).get());
-            inventoryAccounts.add(generalAccountServiceImpl.findByCode(applicationProperties.getPurchaseAccount()).get());
-            inventoryAccounts.add(generalAccountServiceImpl.findByCode(applicationProperties.getReturnInwardAccount()).get());
-            inventoryAccounts.add(generalAccountServiceImpl.findByCode(applicationProperties.getReturnOutwardAccount()).get());
+            inventoryAccounts
+                    .add(generalAccountServiceImpl.findByCode(applicationProperties.getPurchaseAccount()).get());
+            inventoryAccounts
+                    .add(generalAccountServiceImpl.findByCode(applicationProperties.getReturnInwardAccount()).get());
+            inventoryAccounts
+                    .add(generalAccountServiceImpl.findByCode(applicationProperties.getReturnOutwardAccount()).get());
         }
+        if (getOpenInventoryAccount().isPresent()) {
+            inventoryAccounts.add(getOpenInventoryAccount().get());
+        }
+        if (getCloseInventoryAccount().isPresent()) {
+            inventoryAccounts.add(getCloseInventoryAccount().get());
+        }
+
         return inventoryAccounts;
 
     }

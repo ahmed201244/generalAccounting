@@ -16,7 +16,8 @@
                 "title": "Currency"
             },
             "code": "Code",
-            "description": "Description"
+            "description": "Description",
+            "exchangeRate": "Exchange Rate"
         }
     }
 }

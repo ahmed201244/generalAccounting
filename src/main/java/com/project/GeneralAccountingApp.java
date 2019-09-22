@@ -9,8 +9,9 @@ import javax.annotation.PostConstruct;
 
 import com.project.config.ApplicationProperties;
 import com.project.config.DefaultProfileUtil;
-import com.project.domain.enumeration.AccountType;
-import com.project.service.impl.GeneralAccountServiceImpl;
+import com.project.service.impl.GeneralLedgerServiceImpl;
+import com.project.service.impl.GetAccountsServiceImpl;
+import com.project.service.impl.IncomeStatementServiceImpl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -34,10 +35,12 @@ public class GeneralAccountingApp {
 
     private final Environment env;
     @Autowired
-    ApplicationProperties findAccounts;
+    GetAccountsServiceImpl getAccountsServiceImpl;
+    @Autowired
+    GeneralLedgerServiceImpl generalLedgerServiceImpl;
 
     @Autowired
-    GeneralAccountServiceImpl generalAccountServiceImpl;
+    IncomeStatementServiceImpl incomeStatementServiceImpl;
 
     public GeneralAccountingApp(Environment env) {
         this.env = env;
@@ -78,19 +81,8 @@ public class GeneralAccountingApp {
     @Bean
     CommandLineRunner runner(){
         return (args)->{
-            // System.out.println(generalAccountServiceImpl.findByType(AccountType.EXPENDITURE));
-            System.out.println("singleInventoryAccount: "+findAccounts.singleInventoryAccount);
-            System.out.println("profitAndLossAccount: "+findAccounts.profitAndLossAccount);
-            System.out.println("purchaseAccountCode: "+findAccounts.openInventoryAccount);
-            System.out.println("closeInventoryAccount: "+findAccounts.closeInventoryAccount);
-            System.out.println("salesAccount: "+findAccounts.salesAccount);
-            System.out.println("purchaseAccount: "+findAccounts.purchaseAccount);
-            System.out.println("returnInwardAccount: "+findAccounts.returnInwardAccount);
-            System.out.println("returnOutwardAccount: "+findAccounts.returnOutwardAccount);
-            System.out.println("inventoryAccount: "+findAccounts.inventoryAccount);
-            System.out.println("incomeAccounts: "+findAccounts.incomeAccounts);
-            System.out.println("expenditureAccounts: "+findAccounts.expenditureAccounts);
-            
+            // System.out.println("generalLedgerServiceImpl.findOne(19)::::::::::"+generalLedgerServiceImpl.findOneByAccountLedgerId((long) 19)); 
+            // System.out.println(incomeStatementServiceImpl.processStatement());
         };
     }
 

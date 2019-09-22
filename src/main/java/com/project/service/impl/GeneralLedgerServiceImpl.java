@@ -5,7 +5,7 @@ import com.project.domain.GeneralLedger;
 import com.project.repository.GeneralLedgerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,6 +24,8 @@ public class GeneralLedgerServiceImpl implements GeneralLedgerService {
     private final Logger log = LoggerFactory.getLogger(GeneralLedgerServiceImpl.class);
 
     private final GeneralLedgerRepository generalLedgerRepository;
+    @Autowired
+    CurrencyServiceImpl currencyServiceImpl;
 
     public GeneralLedgerServiceImpl(GeneralLedgerRepository generalLedgerRepository) {
         this.generalLedgerRepository = generalLedgerRepository;
@@ -68,6 +70,12 @@ public class GeneralLedgerServiceImpl implements GeneralLedgerService {
                 generalLedger.setBalanceSumCr(BigDecimal.ZERO);
 
             }
+
+            if(!generalLedger.getAccountLedger().getGeneralAccountCurrency().equals(currencyServiceImpl.getApplicationCurrency().get())){
+                generalLedger.setBalanceSumCr(generalLedger.getBalanceSumCr().multiply(BigDecimal.valueOf(generalLedger.getAccountLedger().getGeneralAccountCurrency().getExchangeRate())));
+                generalLedger.setBalanceSumDr(generalLedger.getBalanceSumDr().multiply(BigDecimal.valueOf(generalLedger.getAccountLedger().getGeneralAccountCurrency().getExchangeRate())));
+            }
+
             save(generalLedger);
         }
         return generalLedgers;
@@ -80,10 +88,15 @@ public class GeneralLedgerServiceImpl implements GeneralLedgerService {
      * @return the entity
      */
     @Override
-    @Transactional(readOnly = true)
+    // @Transactional(readOnly = true)
     public Optional<GeneralLedger> findOne(Long id) {
         log.debug("Request to get GeneralLedger : {}", id);
         return generalLedgerRepository.findById(id);
+    }
+
+    public Optional<GeneralLedger> findOneByAccountLedgerId(Long id) {
+        log.debug("Request to get GeneralLedger : {}", id);
+        return generalLedgerRepository.findByAccountLedgerId(id);
     }
 
     /**

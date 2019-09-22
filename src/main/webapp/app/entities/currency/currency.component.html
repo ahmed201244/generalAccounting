@@ -17,6 +17,7 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="code"><span jhiTranslate="generalAccountingApp.currency.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="description"><span jhiTranslate="generalAccountingApp.currency.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="exchangeRate"><span jhiTranslate="generalAccountingApp.currency.exchangeRate">Exchange Rate</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -25,6 +26,7 @@
                 <td><a [routerLink]="['/currency', currency.id, 'view' ]">{{currency.id}}</a></td>
                 <td>{{currency.code}}</td>
                 <td>{{currency.description}}</td>
+                <td>{{currency.exchangeRate}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

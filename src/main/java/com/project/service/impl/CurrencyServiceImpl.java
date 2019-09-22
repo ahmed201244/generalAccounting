@@ -1,11 +1,12 @@
 package com.project.service.impl;
 
 import com.project.service.CurrencyService;
+import com.project.config.ApplicationProperties;
 import com.project.domain.Currency;
 import com.project.repository.CurrencyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,8 @@ import java.util.Optional;
 public class CurrencyServiceImpl implements CurrencyService {
 
     private final Logger log = LoggerFactory.getLogger(CurrencyServiceImpl.class);
-
+    @Autowired
+    ApplicationProperties applicationProperties;
     private final CurrencyRepository currencyRepository;
 
     public CurrencyServiceImpl(CurrencyRepository currencyRepository) {
@@ -53,7 +55,6 @@ public class CurrencyServiceImpl implements CurrencyService {
         return currencyRepository.findAll(pageable);
     }
 
-
     /**
      * Get one currency by id.
      *
@@ -74,6 +75,16 @@ public class CurrencyServiceImpl implements CurrencyService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete Currency : {}", id);        currencyRepository.deleteById(id);
+        log.debug("Request to delete Currency : {}", id);
+        currencyRepository.deleteById(id);
+    }
+
+    public Optional<Currency> findOneByCode(String code){
+        log.debug("Request to get Currency : {}", code);        
+        return currencyRepository.findOneByCode(code);
+    }
+
+    public Optional<Currency> getApplicationCurrency() {
+        return findOneByCode(applicationProperties.getCurrencyCode());
     }
 }

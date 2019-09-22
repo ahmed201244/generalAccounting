@@ -32,6 +32,10 @@ public class Currency implements Serializable {
     @Column(name = "description", nullable = false)
     private String description;
 
+    @NotNull
+    @Column(name = "exchange_rate", nullable = false)
+    private double exchangeRate;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -66,6 +70,15 @@ public class Currency implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    public void setExchangeRate(double exchangeRate) {
+        this.exchangeRate = exchangeRate;
+    }
+
+    public double getExchangeRate() {
+        return exchangeRate;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -94,6 +107,7 @@ public class Currency implements Serializable {
             "id=" + getId() +
             ", code='" + getCode() + "'" +
             ", description='" + getDescription() + "'" +
+            ", exchangeRate='"+ getExchangeRate() +"" +
             "}";
     }
 }

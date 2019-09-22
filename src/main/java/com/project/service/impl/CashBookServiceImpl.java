@@ -34,7 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Service Implementation for managing CashBook.
  */
 @Service
-@Transactional
+// @Transactional
 public class CashBookServiceImpl implements CashBookService {
 
     private final Logger log = LoggerFactory.getLogger(CashBookServiceImpl.class);

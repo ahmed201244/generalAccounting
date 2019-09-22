@@ -27,6 +27,8 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
     private final TrialBalanceRepository trialBalanceRepository;
     @Autowired
     GeneralAccountServiceImpl generalAccountServiceImpl;
+    @Autowired
+    CurrencyServiceImpl currencyServiceImpl;
 
     public TrialBalanceServiceImpl(TrialBalanceRepository trialBalanceRepository) {
         this.trialBalanceRepository = trialBalanceRepository;
@@ -69,9 +71,7 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
             {
                 trialBalance.setCredit(trialBalance.getCredit().subtract(trialBalance.getDebit()));
                 trialBalance.setDebit(BigDecimal.ZERO);
-
             }
-            
 
             if (returnVal != 0) {
                 save(trialBalance);

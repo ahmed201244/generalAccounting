@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BalanceSheet" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c5cba802-ecc5-4f4b-b863-4711515e2e4b">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BalanceSheet" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c5cba802-ecc5-4f4b-b863-4711515e2e4b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MYSQL"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
@@ -30,42 +30,13 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="Dataset1" uuid="001759ad-845b-475f-87f2-b22b0a645ab5">
-		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="479"/>
-		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="521"/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sample DB"/>
-		<queryString language="SQL">
-			<![CDATA[select * from orders]]>
-		</queryString>
-		<field name="ORDERID" class="java.lang.Integer">
-			<property name="com.jaspersoft.studio.field.label" value="ORDERID"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="ORDERS"/>
-		</field>
-		<field name="CUSTOMERID" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="CUSTOMERID"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="ORDERS"/>
-		</field>
-		<field name="EMPLOYEEID" class="java.lang.Integer">
-			<property name="com.jaspersoft.studio.field.label" value="EMPLOYEEID"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="ORDERS"/>
-		</field>
-		<field name="ORDERDATE" class="java.sql.Timestamp">
-			<property name="com.jaspersoft.studio.field.label" value="ORDERDATE"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="ORDERS"/>
-		</field>
-		<field name="REQUIREDDATE" class="java.sql.Timestamp">
-			<property name="com.jaspersoft.studio.field.label" value="REQUIREDDATE"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="ORDERS"/>
-		</field>
-	</subDataset>
 	<queryString language="SQL">
 		<![CDATA[select general_account.id,general_account.code, general_account.description,general_account.jhi_type,
-general_ledger.balance_sum_dr,
-general_ledger.balance_sum_cr 
-from general_account,general_ledger
-where general_account.id = general_ledger.id
-and general_account.jhi_type IN ('ASSET','LIABILITY','CAPITAL','DRAWING')]]>
+					general_ledger.balance_sum_dr,
+					general_ledger.balance_sum_cr 
+					from general_account,general_ledger
+					where general_account.id = general_ledger.account_ledger_id
+					and general_account.jhi_type IN ('ASSET','LIABILITY','CAPITAL')]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
@@ -91,9 +62,9 @@ and general_account.jhi_type IN ('ASSET','LIABILITY','CAPITAL','DRAWING')]]>
 		<property name="com.jaspersoft.studio.field.label" value="balance_sum_cr"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="general_ledger"/>
 	</field>
-	<sortField name="id"/>
-	<variable name="balance_total" class="java.lang.Double" resetType="Group" resetGroup="Account Type" calculation="Sum">
-		<variableExpression><![CDATA[ABS($F{balance_sum_dr}.subtract($F{balance_sum_cr}))]]></variableExpression>
+	<sortField name="code"/>
+	<variable name="balance_total" class="java.math.BigDecimal" resetType="Group" resetGroup="Account Type" calculation="Sum">
+		<variableExpression><![CDATA[IF($F{balance_sum_dr}.compareTo($F{balance_sum_cr})==1,$F{balance_sum_dr}.subtract($F{balance_sum_cr}),$F{balance_sum_cr}.subtract($F{balance_sum_dr}))]]></variableExpression>
 	</variable>
 	<group name="Account Type">
 		<groupExpression><![CDATA[$F{jhi_type}]]></groupExpression>
@@ -102,7 +73,7 @@ and general_account.jhi_type IN ('ASSET','LIABILITY','CAPITAL','DRAWING')]]>
 				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.grid.JSSGridBagLayout"/>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<textField>
-					<reportElement x="0" y="0" width="397" height="21" uuid="9fbe4d44-d2bc-439d-8fe3-398f1fc2a00c">
+					<reportElement x="0" y="0" width="555" height="21" uuid="9fbe4d44-d2bc-439d-8fe3-398f1fc2a00c">
 						<property name="com.jaspersoft.layout.grid.x" value="-1"/>
 						<property name="com.jaspersoft.layout.grid.y" value="-1"/>
 						<property name="com.jaspersoft.layout.grid.weight.x" value="0.5"/>
@@ -118,7 +89,7 @@ and general_account.jhi_type IN ('ASSET','LIABILITY','CAPITAL','DRAWING')]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font size="10" isBold="true" isItalic="true"/>
+						<font size="10" isBold="true" isItalic="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{jhi_type}]]></textFieldExpression>
 				</textField>
@@ -129,7 +100,7 @@ and general_account.jhi_type IN ('ASSET','LIABILITY','CAPITAL','DRAWING')]]>
 				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.grid.JSSGridBagLayout"/>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<textField>
-					<reportElement x="0" y="0" width="397" height="23" uuid="425400af-19b3-4b3a-ab41-cdafd7261b79">
+					<reportElement x="0" y="0" width="347" height="23" uuid="425400af-19b3-4b3a-ab41-cdafd7261b79">
 						<property name="com.jaspersoft.layout.grid.x" value="0"/>
 						<property name="com.jaspersoft.layout.grid.y" value="-1"/>
 						<property name="com.jaspersoft.layout.grid.weight.x" value="2.5"/>
@@ -145,12 +116,20 @@ and general_account.jhi_type IN ('ASSET','LIABILITY','CAPITAL','DRAWING')]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10" isBold="true" isItalic="true"/>
+						<font size="10" isBold="true" isItalic="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Total "+ $F{jhi_type}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00#">
-					<reportElement x="397" y="0" width="158" height="23" uuid="dbe12255-f60e-4a15-a72e-4b10a8bc0922"/>
+					<reportElement x="347" y="0" width="208" height="23" uuid="dbe12255-f60e-4a15-a72e-4b10a8bc0922">
+						<property name="com.jaspersoft.layout.grid.x" value="-1"/>
+						<property name="com.jaspersoft.layout.grid.y" value="0"/>
+						<property name="com.jaspersoft.layout.grid.weight.x" value="1.5"/>
+						<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+						<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+						<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+						<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+					</reportElement>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -160,7 +139,7 @@ and general_account.jhi_type IN ('ASSET','LIABILITY','CAPITAL','DRAWING')]]>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true" isItalic="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{balance_total}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[ABS($V{balance_total})]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -193,7 +172,7 @@ and general_account.jhi_type IN ('ASSET','LIABILITY','CAPITAL','DRAWING')]]>
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.grid.JSSGridBagLayout"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement x="80" y="0" width="317" height="23" uuid="2ce26808-e487-4e4f-93bd-5ca7aa3709d4">
+				<reportElement x="70" y="0" width="277" height="23" uuid="2ce26808-e487-4e4f-93bd-5ca7aa3709d4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0eb12eff-ac25-4f7a-8fbe-0b2912c3f1d1"/>
 					<property name="com.jaspersoft.layout.grid.x" value="1"/>
 					<property name="com.jaspersoft.layout.grid.y" value="-1"/>
@@ -210,12 +189,12 @@ and general_account.jhi_type IN ('ASSET','LIABILITY','CAPITAL','DRAWING')]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="12" isBold="true" isItalic="true"/>
+					<font size="12" isBold="true" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Description]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="0" width="80" height="23" uuid="a688b4d8-2199-47f1-8a8d-4692d8a2d5f2">
+				<reportElement x="0" y="0" width="70" height="23" uuid="a688b4d8-2199-47f1-8a8d-4692d8a2d5f2">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="14733947-42aa-4c40-8405-6f813ec17060"/>
 					<property name="com.jaspersoft.layout.grid.x" value="0"/>
 					<property name="com.jaspersoft.layout.grid.y" value="0"/>
@@ -232,15 +211,15 @@ and general_account.jhi_type IN ('ASSET','LIABILITY','CAPITAL','DRAWING')]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="12" isBold="true" isItalic="true"/>
+					<font size="12" isBold="true" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Code]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="397" y="0" width="158" height="23" uuid="3c58fe0c-45df-40ed-be21-6174588e5829">
+				<reportElement x="347" y="0" width="104" height="23" uuid="3c58fe0c-45df-40ed-be21-6174588e5829">
 					<property name="com.jaspersoft.layout.grid.x" value="2"/>
 					<property name="com.jaspersoft.layout.grid.y" value="-1"/>
-					<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+					<property name="com.jaspersoft.layout.grid.weight.x" value="0.75"/>
 					<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
 					<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
 					<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
@@ -253,17 +232,38 @@ and general_account.jhi_type IN ('ASSET','LIABILITY','CAPITAL','DRAWING')]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true" isItalic="true"/>
+					<font size="12" isBold="true" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[Balance]]></text>
+				<text><![CDATA[€]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="451" y="0" width="104" height="23" uuid="7e5973df-3666-4ab4-b19e-ee3c5fb1184f">
+					<property name="com.jaspersoft.layout.grid.x" value="-1"/>
+					<property name="com.jaspersoft.layout.grid.y" value="-1"/>
+					<property name="com.jaspersoft.layout.grid.weight.x" value="0.75"/>
+					<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+					<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+					<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+					<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[€]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.grid.JSSGridBagLayout"/>
 			<textField>
-				<reportElement x="80" y="0" width="317" height="21" uuid="d03e94c6-f144-482d-9e9b-d8ca46120f4a">
+				<reportElement x="70" y="0" width="277" height="25" uuid="d03e94c6-f144-482d-9e9b-d8ca46120f4a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0eb12eff-ac25-4f7a-8fbe-0b2912c3f1d1"/>
 					<property name="com.jaspersoft.layout.grid.x" value="1"/>
 					<property name="com.jaspersoft.layout.grid.y" value="-1"/>
@@ -285,10 +285,10 @@ and general_account.jhi_type IN ('ASSET','LIABILITY','CAPITAL','DRAWING')]]>
 				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="397" y="0" width="158" height="21" uuid="19174a31-2406-4e4c-b191-eba0cc8b7e36">
+				<reportElement x="347" y="0" width="104" height="25" uuid="19174a31-2406-4e4c-b191-eba0cc8b7e36">
 					<property name="com.jaspersoft.layout.grid.x" value="2"/>
 					<property name="com.jaspersoft.layout.grid.y" value="-1"/>
-					<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+					<property name="com.jaspersoft.layout.grid.weight.x" value="0.75"/>
 					<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
 					<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
 					<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
@@ -303,11 +303,10 @@ and general_account.jhi_type IN ('ASSET','LIABILITY','CAPITAL','DRAWING')]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[IF($F{balance_sum_dr}.compareTo( $F{balance_sum_cr}) == -1 ,"(","") +TEXT(ABS($F{balance_sum_dr}.subtract($F{balance_sum_cr} )),"")+
-IF($F{balance_sum_dr}.compareTo( $F{balance_sum_cr}) == -1 ,")","")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{balance_sum_dr}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="80" height="21" uuid="fc06bdf5-c619-410e-9b25-b92eab48c3ad">
+				<reportElement x="0" y="0" width="70" height="25" uuid="fc06bdf5-c619-410e-9b25-b92eab48c3ad">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="14733947-42aa-4c40-8405-6f813ec17060"/>
 					<property name="com.jaspersoft.layout.grid.x" value="0"/>
 					<property name="com.jaspersoft.layout.grid.y" value="-1"/>
@@ -327,6 +326,25 @@ IF($F{balance_sum_dr}.compareTo( $F{balance_sum_cr}) == -1 ,")","")]]></textFiel
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="0" width="104" height="25" uuid="2f023635-6a90-4dd9-a978-8409ddf885e7">
+					<property name="com.jaspersoft.layout.grid.x" value="3"/>
+					<property name="com.jaspersoft.layout.grid.y" value="-1"/>
+					<property name="com.jaspersoft.layout.grid.weight.x" value="0.750"/>
+					<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+					<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+					<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+					<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{balance_sum_cr}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

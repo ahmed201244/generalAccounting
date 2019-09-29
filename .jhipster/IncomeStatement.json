@@ -1,0 +1,19 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "isprocessed",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20190922080715",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "income_statement",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

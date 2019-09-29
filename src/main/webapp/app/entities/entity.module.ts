@@ -23,6 +23,18 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'general-ledger',
                 loadChildren: './general-ledger/general-ledger.module#GeneralAccountingGeneralLedgerModule'
+            },
+            {
+                path: 'balance-sheet',
+                loadChildren: './balance-sheet/balance-sheet.module#GeneralAccountingBalanceSheetModule'
+            },
+            {
+                path: 'income-statement',
+                loadChildren: './income-statement/income-statement.module#GeneralAccountingIncomeStatementModule'
+            },
+            {
+                path: 'balance-sheet',
+                loadChildren: './balance-sheet/balance-sheet.module#GeneralAccountingBalanceSheetModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

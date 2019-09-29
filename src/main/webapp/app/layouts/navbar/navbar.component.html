@@ -29,35 +29,59 @@
                 <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
                     <li>
                         <a class="dropdown-item" routerLink="currency" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <fa-icon icon="th-list" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.currency">Currency</span>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="cash-book" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <fa-icon icon="th-list" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.cashBook">Cash Book</span>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="general-account" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <fa-icon icon="th-list" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.generalAccount">General Account</span>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="trial-balance" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <fa-icon icon="th-list" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.trialBalance">Trial Balance</span>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="general-ledger" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <fa-icon icon="th-list" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.generalLedger">General Ledger</span>
                         </a>
                     </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+                </ul>
+            </li>
+            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="report-menu">
+                    <span>
+                        <fa-icon icon="book"></fa-icon>
+                        <span jhiTranslate="global.menu.reports.main">
+                            Financial Reports
+                        </span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="report-menu">
+                    <li>
+                        <a class="dropdown-item" routerLink="balance-sheet" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="book" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.reports.balanceSheet">Statement of Financial Position</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="income-statement" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="book" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.reports.incomeStatment">Statement of Profit & Loss</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">

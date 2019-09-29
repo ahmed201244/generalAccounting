@@ -1,0 +1,21 @@
+{
+    "generalAccountingApp": {
+        "incomeStatement": {
+            "home": {
+                "title": "Income Statements",
+                "createLabel": "Create a new Income Statement",
+                "createOrEditLabel": "Create or edit a Income Statement"
+            },
+            "created": "A new Income Statement is created with identifier {{ param }}",
+            "updated": "A Income Statement is updated with identifier {{ param }}",
+            "deleted": "A Income Statement is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Income Statement {{ id }}?"
+            },
+            "detail": {
+                "title": "Income Statement"
+            },
+            "isprocessed": "Isprocessed"
+        }
+    }
+}

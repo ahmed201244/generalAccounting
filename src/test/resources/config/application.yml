@@ -15,23 +15,25 @@
 
 
 spring:
+    profiles:
+        active: dev
     application:
         name: generalAccounting
     cache:
         type: simple
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:mem:generalAccounting;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        url: jdbc:mysql://localhost:3306/generalAccounting?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
         name:
-        username:
+        username: root
         password:
         hikari:
             auto-commit: false
     jpa:
-        database-platform: io.github.jhipster.domain.util.FixedH2Dialect
-        database: H2
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        database: MYSQL
         open-in-view: false
-        show-sql: false
+        show-sql: true
         hibernate:
             ddl-auto: none
             naming:

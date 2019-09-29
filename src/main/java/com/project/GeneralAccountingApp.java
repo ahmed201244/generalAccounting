@@ -9,9 +9,10 @@ import javax.annotation.PostConstruct;
 
 import com.project.config.ApplicationProperties;
 import com.project.config.DefaultProfileUtil;
+import com.project.service.IncomeStatementService;
+import com.project.service.impl.BalanceSheetServiceImpl;
 import com.project.service.impl.GeneralLedgerServiceImpl;
 import com.project.service.impl.GetAccountsServiceImpl;
-import com.project.service.impl.IncomeStatementServiceImpl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -40,7 +41,7 @@ public class GeneralAccountingApp {
     GeneralLedgerServiceImpl generalLedgerServiceImpl;
 
     @Autowired
-    IncomeStatementServiceImpl incomeStatementServiceImpl;
+    IncomeStatementService incomeStatementService;
 
     public GeneralAccountingApp(Environment env) {
         this.env = env;
@@ -81,8 +82,7 @@ public class GeneralAccountingApp {
     @Bean
     CommandLineRunner runner(){
         return (args)->{
-            // System.out.println("generalLedgerServiceImpl.findOne(19)::::::::::"+generalLedgerServiceImpl.findOneByAccountLedgerId((long) 19)); 
-            // System.out.println(incomeStatementServiceImpl.processStatement());
+            // incomeStatementService.getIncomeStatement();
         };
     }
 

@@ -1,0 +1,19 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "isprocessed",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20190922074702",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "balance_sheet",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

@@ -12,7 +12,13 @@
                 "generalAccount": "General Account",
                 "trialBalance": "Trial Balance",
                 "generalLedger": "General Ledger",
+                "balanceSheet": "Balance Sheet",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+            },
+            "reports": {
+                "main": "Financial Reports",
+                "balanceSheet": "Statement of Financial Position",
+                "incomeStatment": "Statement of Profit & Loss"
             },
             "account": {
                 "main": "Account",
